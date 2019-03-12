@@ -1,43 +1,64 @@
 package com.arh.topic.easy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TestOne {
 
     public static void main(String[] args) {
-        System.out.println(isPalindrome(1200021));
+        System.out.println(romanToInt("MCMXCIV"));
+    }
+
+    /**
+     * 给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。
+     * 字符          数值
+     * I             1
+     * V             5
+     * X             10
+     * L             50
+     * C             100
+     * D             500
+     * M             1000
+     */
+    public static int romanToInt(String s) {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("I", 1);
+        map.put("V", 5);
+        map.put("X", 10);
+        map.put("L", 50);
+        map.put("C", 100);
+        map.put("D", 500);
+        map.put("M", 1000);
+        int result = 0;
+        for (int i = 0; i <= s.length() - 1; i++) {
+            char c = s.charAt(i);
+            if ("I".equals(String.valueOf(c)) || "X".equals(String.valueOf(c)) || "C".equals(String.valueOf(c))) {
+                if (i + 1 <= s.length() - 1) {
+                    char c2 = s.charAt(i + 1);
+                    int x = map.get(String.valueOf(c2)) / map.get(String.valueOf(c));
+                    if (x == 5 || x == 10) {
+                        result = result + map.get(String.valueOf(c2)) - map.get(String.valueOf(c));
+                        i++;
+                        continue;
+                    }
+                }
+            }
+            result = result + map.get(String.valueOf(c));
+
+        }
+        return result;
     }
 
     /**
      * 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
      */
     public static boolean isPalindrome(int x) {
-        if (x < 0) {
-            return false;
-        } else if (x == 0) {
-            return true;
-        } else {
-            int number = 10;
-            int j = 1;
-            while (x / number > 0) {
-                int a = x / number;
-                int b = x % number;
-                int i = 0;
-                while (a / 10 >= Math.pow(10, j - 1)) {
-                    a = a / 10;
-                    i++;
-                }
-                if (number != 10) {
-                    a = a % (number / 10);
-                    b = b / (number / 10);
-                }
-
-                if (a != b) {
-                    return false;
-                }
-                j++;
-                number = (int) Math.pow(number, j);
-            }
-            return true;
+        String numberStr = String.valueOf(x);
+        for (int i = 0; i < numberStr.length() / 2; i++) {
+            if (numberStr.charAt(i) != numberStr.charAt(numberStr.length() - 1 - i))
+                return false;
         }
+        return true;
 
     }
 
@@ -48,7 +69,24 @@ public class TestOne {
      * 假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−2^31,  2^31 − 1]。请根据这个假设，如果反转后整数溢出那么就返回
      */
     public int reverse(int x) {
-        return 0;
+        String number = String.valueOf(x);
+        char[] chars = number.toCharArray();
+        int startIndex = 0;
+        int length = chars.length;
+        if (x < 0) {
+            startIndex++;
+            length--;
+        }
+        for (int i = startIndex; i < length / 2 + startIndex; i++) {
+            char temp = chars[i];
+            chars[i] = chars[chars.length - 1 - (i - startIndex)];
+            chars[chars.length - 1 - (i - startIndex)] = temp;
+        }
+        try {
+            return Integer.parseInt(String.valueOf(chars));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
 
