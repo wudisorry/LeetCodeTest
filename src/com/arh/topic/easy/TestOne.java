@@ -35,14 +35,22 @@ public class TestOne {
     }
 
     public int findLastStr(String[] strs, int beginIndex, int endIndex, String target) {
-        //if(beginIndex){}
-        int middle = (beginIndex + endIndex) / 2;
-        if (strs[middle].startsWith(target)) {
-            findLastStr(strs,middle,endIndex,target);
-        }else {
-            findLastStr(strs,beginIndex,middle-1,target);
+        if (beginIndex < 0 || endIndex < 0) {
+            return -1;
+        } else if (endIndex == beginIndex) {
+            if (strs[beginIndex].startsWith(target)) {
+                return beginIndex;
+            } else {
+                return -1;
+            }
+        } else {
+            int middle = (beginIndex + endIndex) / 2;
+            if (strs[middle].startsWith(target)) {
+                return findLastStr(strs, middle, endIndex, target);
+            } else {
+                return findLastStr(strs, beginIndex, middle - 1, target);
+            }
         }
-        return 0;
     }
 
     /**
