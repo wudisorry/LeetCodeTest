@@ -1,12 +1,48 @@
 package com.arh.topic.easy;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.sun.deploy.util.ArrayUtil;
 
 public class TestOne {
 
     public static void main(String[] args) {
-        System.out.println(romanToInt("MCMXCIV"));
+        String[] strs = new String[]{"bb","ac","aad"};
+        Arrays.sort(strs);
+        System.out.println("aa".subSequence(0,2));
+        //System.out.println(romanToInt("MCMXCIV"));
+    }
+
+
+    /**
+     *
+     * Write a function to find the longest common prefix string amongst an array
+     * of strings.
+     *
+     * If there is no common prefix, return an empty string "".
+     */
+    public String longestCommonPrefix(String[] strs) {
+        Arrays.sort(strs);
+        for (int i = 0; i < strs.length; i++) {
+            String str = strs[i];
+            for (int j = 0; j < str.length(); j++) {
+                String key = str.substring(0, j + 1);
+            }
+        }
+        return null;
+    }
+
+    public int findLastStr(String[] strs, int beginIndex, int endIndex, String target) {
+        //if(beginIndex){}
+        int middle = (beginIndex + endIndex) / 2;
+        if (strs[middle].startsWith(target)) {
+            findLastStr(strs,middle,endIndex,target);
+        }else {
+            findLastStr(strs,beginIndex,middle-1,target);
+        }
+        return 0;
     }
 
     /**
