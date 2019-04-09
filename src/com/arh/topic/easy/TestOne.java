@@ -9,48 +9,38 @@ import com.sun.deploy.util.ArrayUtil;
 public class TestOne {
 
     public static void main(String[] args) {
-        String[] strs = new String[]{"bb","ac","aad"};
-        Arrays.sort(strs);
-        System.out.println("aa".subSequence(0,2));
-        //System.out.println(romanToInt("MCMXCIV"));
+
+        TestOne to = new TestOne();
+        System.out.println(to.longestCommonPrefix(new String[]{"flower", "flow", "flight"}));
     }
 
 
     /**
-     *
      * Write a function to find the longest common prefix string amongst an array
      * of strings.
-     *
+     * <p>
      * If there is no common prefix, return an empty string "".
      */
     public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length < 1) {
+            return "";
+        }
+        if (strs.length == 1) {
+            return strs[0];
+        }
         Arrays.sort(strs);
-        for (int i = 0; i < strs.length; i++) {
-            String str = strs[i];
-            for (int j = 0; j < str.length(); j++) {
-                String key = str.substring(0, j + 1);
-            }
-        }
-        return null;
-    }
+        String result = "";
 
-    public int findLastStr(String[] strs, int beginIndex, int endIndex, String target) {
-        if (beginIndex < 0 || endIndex < 0) {
-            return -1;
-        } else if (endIndex == beginIndex) {
-            if (strs[beginIndex].startsWith(target)) {
-                return beginIndex;
+        String str = strs[0];
+        for (int j = 0; j < str.length(); j++) {
+            String target = str.substring(0, j + 1);
+            if (strs[strs.length - 1].startsWith(target)) {
+                result = target;
             } else {
-                return -1;
-            }
-        } else {
-            int middle = (beginIndex + endIndex) / 2;
-            if (strs[middle].startsWith(target)) {
-                return findLastStr(strs, middle, endIndex, target);
-            } else {
-                return findLastStr(strs, beginIndex, middle - 1, target);
+                break;
             }
         }
+        return result;
     }
 
     /**
