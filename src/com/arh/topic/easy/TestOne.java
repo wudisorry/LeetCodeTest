@@ -1,17 +1,63 @@
 package com.arh.topic.easy;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
+import javax.sound.midi.Track;
 
 import com.sun.deploy.util.ArrayUtil;
 
 public class TestOne {
 
     public static void main(String[] args) {
-
         TestOne to = new TestOne();
-        System.out.println(to.longestCommonPrefix(new String[]{"flower", "flow", "flight"}));
+        System.out.println(to.isValid("]"));
+    }
+
+    /**
+     * Given a string containing just the characters '(', ')', '{', '}', '[' and
+     * ']', determine if the input string is valid.
+     * <p>
+     * An input string is valid if:
+     * <p>
+     * <p>
+     * Open brackets must be closed by the same type of brackets.
+     * Open brackets must be closed in the correct order.
+     * <p>
+     * <p>
+     * Note that an empty string is also considered valid.
+     */
+    public boolean isValid(String s) {
+        if (s == null || s.trim() == "") {
+            return true;
+        }
+        char[] chars = new char[126];
+        chars[')'] = '(';
+        chars['}'] = '{';
+        chars[']'] = '[';
+        List<Character> ops = new ArrayList<>();
+        char[] charArray = s.toCharArray();
+        for (int i = 0; i < charArray.length; i++) {
+            char c = charArray[i];
+            if ('(' == c || '{' == c || '[' == c) {
+                ops.add(c);
+            } else if (')' == c || '}' == c || ']' == c) {
+                int size = ops.size();
+                if (size < 1) {
+                    return false;
+                }
+                char target = ops.get(ops.size() - 1);
+                if (chars[c] != target) {
+                    return false;
+                } else {
+                    ops.remove(ops.size() - 1);
+                }
+            }
+        }
+        if (ops.size() > 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
