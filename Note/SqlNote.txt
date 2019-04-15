@@ -1,0 +1,34 @@
+mysql 没有dual表，直接select XX就行
+
+1.比较日期大小
+用大于小于符号前要转成同一格式
+MySql：
+(1)使用UNIX_TIMESTAMP函数，把字符串变时间戳。字符串必须满足yyyy-MM-dd HH:mm:ss格式
+UNIX_TIMESTAMP(p.F_INTERVIEW_BEGIN_TIME) >= UNIX_TIMESTAMP( your string)
+(2)使用DATE_FORMAT函数，把比较的日期变为同一个格式
+DATE_FORMAT(p.F_INTERVIEW_BEGIN_TIME,'%Y-%m-%d %H:%i')>=DATE_FORMAT(your string,'%Y-%m-%d %H:%i')
+date函数是只获取日期，time函数是只获取时间
+
+Oracle:
+(1)使用TO_DATE函数
+p.F_INTERVIEW_END_TIME>=TO_DATE(your string,'yyyy-MM-dd HH24:mi')
+
+
+2.获取当前时间
+MySql：
+(1)now函数，CURDATE函数，CURTIME函数
+(2)sysdate函数
+NOW()取的是语句开始执行的时间，SYSDATE()取的是动态的实时时间。
+SELECT NOW(),SYSDATE(),SLEEP(3),NOW(),SYSDATE()
+先查询了NOW()和SYSDATE()，然后sleep了3秒，再查询NOW()和SYSDATE()，结果如下：
+SYSDATE会比NOW晚3秒
+
+Oracle:
+sysdate
+
+3.条件判断
+MySql：
+if(表达式，X，X)
+
+Oracle：
+decode
