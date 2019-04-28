@@ -15,8 +15,10 @@ public class TestOne {
 //        for (int x : a) {
 //            System.out.println(x);
 //        }'""\n""'
-        System.out.println(to.generateCountAndSayByLastTerm("1211"));
+        System.out.println(to.generateCountAndSayByLastTerm("21"));
     }
+
+    
 
     /**
      * The count-and-say sequence is the sequence of integers with the first five terms as following:
@@ -31,7 +33,11 @@ public class TestOne {
      * 21 is read off as "one 2, then one 1" or 1211.
      */
     public String countAndSay(int n) {
-        return null;
+        String result = "1";
+        for (int i = 1; i < n; i++) {
+            result = generateCountAndSayByLastTerm(result);
+        }
+        return result;
     }
 
     public String generateCountAndSayByLastTerm(String str) {
@@ -47,6 +53,7 @@ public class TestOne {
                 result.append(count)
                         .append(chars[i - 1]);
                 count = 1;
+                target = chars[i];
             }
         }
         result.append(count)
