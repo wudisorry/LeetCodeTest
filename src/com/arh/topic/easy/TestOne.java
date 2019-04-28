@@ -10,12 +10,48 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{1,3,5,6};
+        int[] a = new int[]{1, 3, 5, 6};
 //        System.out.println(to.removeElement(a, 2));
 //        for (int x : a) {
 //            System.out.println(x);
 //        }'""\n""'
-        System.out.println(to.searchInsert(a, 0));
+        System.out.println(to.generateCountAndSayByLastTerm("1211"));
+    }
+
+    /**
+     * The count-and-say sequence is the sequence of integers with the first five terms as following:
+     * <p>
+     * 1.     1
+     * 2.     11
+     * 3.     21
+     * 4.     1211
+     * 5.     111221
+     * 1 is read off as "one 1" or 11.
+     * 11 is read off as "two 1s" or 21.
+     * 21 is read off as "one 2, then one 1" or 1211.
+     */
+    public String countAndSay(int n) {
+        return null;
+    }
+
+    public String generateCountAndSayByLastTerm(String str) {
+        char[] chars = str.toCharArray();
+        char target = chars[0];
+        StringBuffer result = new StringBuffer();
+        int count = 1;
+        for (int i = 1; i < chars.length; i++) {
+            char currentChar = chars[i];
+            if (currentChar == target) {
+                count++;
+            } else {
+                result.append(count)
+                        .append(chars[i - 1]);
+                count = 1;
+            }
+        }
+        result.append(count)
+                .append(chars[chars.length - 1]);
+        return result.toString();
     }
 
     /**
