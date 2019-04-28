@@ -10,11 +10,116 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        System.out.println(to.isValid("]"));
+        int[] a = new int[]{1,3,5,6};
+//        System.out.println(to.removeElement(a, 2));
+//        for (int x : a) {
+//            System.out.println(x);
+//        }'""\n""'
+        System.out.println(to.searchInsert(a, 0));
     }
 
+    /**
+     * Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+     * You may assume no duplicates in the array.
+     */
+    public int searchInsert(int[] nums, int target) {
+        return searchTarget(nums, 0, nums.length - 1, target);
+    }
+
+    private int searchTarget(int[] nums, int startIndex, int endIndex, int target) {
+        if (endIndex - startIndex <= 1) {
+            if (nums[startIndex] == target) {
+                return startIndex;
+            } else if (nums[endIndex] == target) {
+                return endIndex;
+            } else if (nums[startIndex] > target) {
+                return startIndex;
+            } else if ((nums[endIndex] > target)) {
+                return endIndex;
+            } else if (nums[endIndex] < target) {
+                return endIndex + 1;
+            }
+        }
+        int midIndex = (startIndex + endIndex) / 2;
+        int mid = nums[midIndex];
+        if (mid < target) {
+            return searchTarget(nums, midIndex, endIndex, target);
+        } else if (mid > target) {
+            return searchTarget(nums, startIndex, midIndex, target);
+        } else {
+            return midIndex;
+        }
+    }
+
+    /**
+     * Implement strStr().
+     * Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+     */
+    public int strStr(String haystack, String needle) {
+        if (needle == null || "".equals(needle)) {
+            return 0;
+        }
+        int length = needle.length();
+        for (int i = 0; i <= haystack.length() - length; i++) {
+            String currentStr = haystack.substring(i, i + length);
+            if (currentStr.equals(needle)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Given an array nums and a value val, remove all instances of that value in-place and return the new length.
+     * <p>
+     * Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+     * <p>
+     * The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+     */
+    public int removeElement(int[] nums, int val) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int targetIndex = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int currentElement = nums[i];
+            if (currentElement == val) {
+                continue;
+            } else {
+                if (i != targetIndex) {
+                    nums[targetIndex] = currentElement;
+                }
+                targetIndex++;
+            }
+        }
+        return targetIndex;
+    }
+
+    /**
+     * Given a sorted array nums, remove the duplicates in-place such that each
+     * element appear only once and return the new length.
+     * <p>
+     * Do not allocate extra space for another array, you must do this by modifying
+     * the input array in-place with O(1) extra memory.
+     */
     public int removeDuplicates(int[] nums) {
-        return 1;
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int target = nums[0];
+        int targetIndex = 0;
+        for (int i = 1; i < nums.length; i++) {
+            int currentElement = nums[i];
+            if (currentElement == target) {
+                continue;
+            } else {
+                ++targetIndex;
+                nums[targetIndex] = currentElement;
+                target = nums[i];
+            }
+
+        }
+        return targetIndex + 1;
     }
 
     /**
