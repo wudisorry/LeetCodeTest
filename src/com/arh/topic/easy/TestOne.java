@@ -10,22 +10,44 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{1, 3, 5, 6};
+        int[] a = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
 //        System.out.println(to.removeElement(a, 2));
 //        for (int x : a) {
 //            System.out.println(x);
 //        }'""\n""'
-        System.out.println(to.generateCountAndSayByLastTerm("21"));
+        System.out.println(to.maxSubArray(a));
     }
 
-    
 
     /**
      * id=53 lang=java
      * Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+     * <p>
+     * (1)分治法的基本思想是将问题划分为一些子问题，子问题的形式与原问题一样，只是规模更小，递归地求解出子问题，如果子问题的规模足够小，则停止递归，直接求解，最后将子问题的解组合成原问题的解。
+     * 对于最大子数组，我们要寻求子数组A[low...high]的最大子数组。令mid为该子数组的中央位置，我们考虑求解两个子数组A[low...mid]和A[mid+1...high]。A[low...high]的任何连续子数组A[i...j]所处的位置必然是以下三种情况之一：
+     * <p>
+     * 完全位于子数组A[low...mid]中,因此low<=i<=j<=mid.
+     * 完全位于子数组A[mid+1...high]中,因此mid<i<=j<=high.
+     * 跨越了中点，因此low<=i<=mid<j<=high.
+     * <p>
+     * (2)遍历，求出每一个以该元素结尾的和最大子元素
      */
     public int maxSubArray(int[] nums) {
-        return 0;
+        if(nums.length==0){
+            return 0;
+        }
+        int[] sum = new int[nums.length];
+        sum[0] = nums[0];
+        int currentSum;
+        for (int i = 1; i < nums.length; i++) {
+            currentSum = sum[i - 1] + nums[i];
+            sum[i] = Math.max(currentSum, nums[i]);
+        }
+        int result = sum[0];
+        for (int i = 1; i < sum.length; i++) {
+            result = Math.max(result, sum[i]);
+        }
+        return result;
     }
 
     /**
