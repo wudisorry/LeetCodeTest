@@ -19,6 +19,15 @@ public class TestOne {
     }
 
     /**
+     * id=53 lang=java
+     * Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+     */
+    public int maxSubArray(int[] nums) {
+        return 0;
+    }
+
+    /**
+     * id=38 lang=java
      * The count-and-say sequence is the sequence of integers with the first five terms as following:
      * <p>
      * 1.     1
@@ -55,6 +64,7 @@ public class TestOne {
     }
 
     /**
+     * id=35 lang=java
      * Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
      * You may assume no duplicates in the array.
      */
@@ -88,6 +98,7 @@ public class TestOne {
     }
 
     /**
+     * id=28 lang=java
      * Implement strStr().
      * Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
      */
@@ -106,6 +117,7 @@ public class TestOne {
     }
 
     /**
+     * id=27 lang=java
      * Given an array nums and a value val, remove all instances of that value in-place and return the new length.
      * <p>
      * Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
@@ -132,6 +144,7 @@ public class TestOne {
     }
 
     /**
+     * id=26 lang=java
      * Given a sorted array nums, remove the duplicates in-place such that each
      * element appear only once and return the new length.
      * <p>
@@ -159,6 +172,7 @@ public class TestOne {
     }
 
     /**
+     * id=21 lang=java
      * Merge two sorted linked lists and return it as a new list. The new list
      * should be made by splicing together the nodes of the first two lists.
      * <p>
@@ -192,6 +206,7 @@ public class TestOne {
     }
 
     /**
+     * id=20 lang=java
      * Given a string containing just the characters '(', ')', '{', '}', '[' and
      * ']', determine if the input string is valid.
      * <p>
@@ -240,6 +255,7 @@ public class TestOne {
 
 
     /**
+     * id=14 lang=java
      * Write a function to find the longest common prefix string amongst an array
      * of strings.
      * <p>
@@ -268,6 +284,7 @@ public class TestOne {
     }
 
     /**
+     * id=13 lang=java
      * 给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。
      * 字符          数值
      * I             1
@@ -308,6 +325,7 @@ public class TestOne {
     }
 
     /**
+     * id=9 lang=java
      * 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
      */
     public static boolean isPalindrome(int x) {
@@ -321,6 +339,7 @@ public class TestOne {
     }
 
     /**
+     * id=7 lang=java
      * [7] 整数反转
      * 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
      * 注意:
@@ -349,6 +368,7 @@ public class TestOne {
 
 
     /**
+     * id=1 lang=java
      * [1] 两数之和
      * 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
      * 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
