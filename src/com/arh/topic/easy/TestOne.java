@@ -10,12 +10,13 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        int[] a = new int[]{-2,1,-3,4,-1,2,1,-5,4};
 //        System.out.println(to.removeElement(a, 2));
 //        for (int x : a) {
 //            System.out.println(x);
 //        }'""\n""'
         System.out.println(to.maxSubArray(a));
+        System.out.println(to.maxSubArrayByD(a));
     }
 
 
@@ -30,10 +31,10 @@ public class TestOne {
      * 完全位于子数组A[mid+1...high]中,因此mid<i<=j<=high.
      * 跨越了中点，因此low<=i<=mid<j<=high.
      * <p>
-     * (2)遍历，求出每一个以该元素结尾的和最大子元素
+     * (2)遍历，求出每一个以该元素结尾的和最大子元素 动态规划算法 时间复杂度为O(N)
      */
     public int maxSubArray(int[] nums) {
-        if(nums.length==0){
+        if (nums.length == 0) {
             return 0;
         }
         int[] sum = new int[nums.length];
@@ -48,6 +49,43 @@ public class TestOne {
             result = Math.max(result, sum[i]);
         }
         return result;
+    }
+
+    public int maxSubArrayByD(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        return countArraySum(nums, 0, nums.length - 1);
+    }
+
+    private int countArraySum(int[] nums, int l, int r) {
+        if (l == r) {
+            return nums[l];
+        }
+        int m = (r - l) / 2 + l;
+        return Math.max(countArraySum(nums, l, m),
+                Math.max(countCrossArraySum(nums, l, r), countArraySum(nums, m + 1, r)));
+    }
+
+    private int countCrossArraySum(int[] nums, int l, int r) {
+        int m = (r - l) / 2 + l;
+        int leftMaxSum = Integer.MIN_VALUE;
+        int rightMaxSum = Integer.MIN_VALUE;
+        int tempSum = 0;
+        for (int i = m; i >= l; i--) {
+            tempSum = tempSum + nums[i];
+            if (tempSum > leftMaxSum) {
+                leftMaxSum = tempSum;
+            }
+        }
+        tempSum = 0;
+        for (int i = m + 1; i <= r; i++) {
+            tempSum = tempSum + nums[i];
+            if (tempSum > rightMaxSum) {
+                rightMaxSum = tempSum;
+            }
+        }
+        return leftMaxSum + rightMaxSum;
     }
 
     /**
