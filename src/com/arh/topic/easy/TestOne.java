@@ -9,14 +9,37 @@ import com.sun.deploy.util.ArrayUtil;
 public class TestOne {
 
     public static void main(String[] args) {
+        System.out.println(0 / 86400000L);
         TestOne to = new TestOne();
-        int[] a = new int[]{-2,1,-3,4,-1,2,1,-5,4};
+        int[] a = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
 //        System.out.println(to.removeElement(a, 2));
 //        for (int x : a) {
 //            System.out.println(x);
 //        }'""\n""'
         System.out.println(to.maxSubArray(a));
-        System.out.println(to.maxSubArrayByD(a));
+        System.out.println(to.lengthOfLastWord("hello world "));
+    }
+
+    /**
+     * id=66 lang=java
+     * Given a non-empty array of digits representing a non-negative integer, plus one to the integer.
+     * <p>
+     * The digits are stored such that the most significant digit is at the head of the list, and each element in the array contain a single digit.
+     * <p>
+     * You may assume the integer does not contain any leading zero, except the number 0 itself.
+     */
+    public int[] plusOne(int[] digits) {
+        return null;
+    }
+
+    /**
+     * id=58 lang=java
+     * Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+     * <p>
+     * If the last word does not exist, return 0.
+     */
+    public int lengthOfLastWord(String s) {
+        return s.trim().length() - s.trim().lastIndexOf(" ") - 1;
     }
 
 
