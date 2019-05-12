@@ -6,19 +6,62 @@ import javax.sound.midi.Track;
 
 import com.sun.deploy.util.ArrayUtil;
 
+//Difficulty - easy
 public class TestOne {
 
     public static void main(String[] args) {
-        System.out.println(0 / 86400000L);
         TestOne to = new TestOne();
-        int[] a = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        int[] a = new int[]{9, 9};
 //        System.out.println(to.removeElement(a, 2));
 //        for (int x : a) {
 //            System.out.println(x);
 //        }'""\n""'
-        System.out.println(to.maxSubArray(a));
-        System.out.println(to.lengthOfLastWord("hello world "));
+        System.out.println((to.addBinary("0", "0")));
     }
+
+    /**
+     * id=67 lang=java
+     * Given two binary strings, return their sum (also a binary string).
+     * <p>
+     * The input strings are both non-empty and contains only characters 1 or 0.
+     */
+    public String addBinary(String a, String b) {
+        int aLength = a.length();
+        int bLength = b.length();
+        int[] temp = new int[Math.abs(bLength - aLength)];
+        StringBuffer sb = new StringBuffer();
+        for (int x : temp) {
+            sb.append(x);
+        }
+        if (aLength < bLength) {
+            sb.append(a);
+            a = sb.toString();
+        } else {
+            sb.append(b);
+            b = sb.toString();
+        }
+        sb.setLength(0);
+        int plusN = 0;
+        int bs = 2;//进制
+        for (int i = a.length() - 1; i >= 0; i--) {
+            int aStrNumber = Integer.parseInt(String.valueOf(a.charAt(i)));
+            int bStrNumber = Integer.parseInt(String.valueOf(b.charAt(i)));
+            int sum = aStrNumber + bStrNumber + plusN;
+            if (sum > bs - 1) {
+                plusN = 1;
+                sb.insert(0, sum - bs);
+            } else {
+                plusN = 0;
+                sb.insert(0, sum);
+            }
+
+        }
+        if (plusN != 0) {
+            sb.insert(0, 1);
+        }
+        return sb.toString();
+    }
+
 
     /**
      * id=66 lang=java
@@ -29,8 +72,33 @@ public class TestOne {
      * You may assume the integer does not contain any leading zero, except the number 0 itself.
      */
     public int[] plusOne(int[] digits) {
-        return null;
+        boolean flag = false;
+        for (int i = digits.length - 1; i >= 0; i--) {
+            int number = digits[i];
+            if (number == 9) {
+                digits[i] = 0;
+                if (i == 0) {
+                    flag = true;
+                }
+            } else {
+                digits[i] = digits[i] + 1;
+                break;
+            }
+
+        }
+        if (flag) {
+            int[] result = new int[digits.length + 1];
+            result[0] = 1;
+            //其余元素都是0
+//            for (int i = 0; i < digits.length; i++) {
+//                result[i + 1] = digits[i];
+//            }
+            return result;
+        }
+
+        return digits;
     }
+
 
     /**
      * id=58 lang=java
@@ -477,5 +545,13 @@ public class TestOne {
             }
         }
         return result;
+    }
+
+    public void printIntArray(int[] array) {
+        if (array != null) {
+            for (int obj : array) {
+                System.out.println(obj);
+            }
+        }
     }
 }
