@@ -16,7 +16,32 @@ public class TestOne {
 //        for (int x : a) {
 //            System.out.println(x);
 //        }'""\n""'
-        System.out.println((to.addBinary("0", "0")));
+        System.out.println((to.addBinaryAnotherSolution("1010", "1011")));
+    }
+
+    /**
+     * id=70 lang=java
+     * You are climbing a stair case. It takes n steps to reach to the top.
+     * <p>
+     * Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+     * <p>
+     * Note: Given n will be a positive integer.
+     */
+    public int climbStairs(int n) {
+        return 0;
+    }
+
+    /**
+     * id=69 lang=java
+     * Implement int sqrt(int x).
+     * <p>
+     * Compute and return the square root of x, where x is guaranteed to be a non-negative integer.
+     * <p>
+     * Since the return type is an integer, the decimal digits are truncated and only the integer part of the result is returned.
+     */
+    public int mySqrt(int x) {
+
+        return 0;
     }
 
     /**
@@ -59,6 +84,32 @@ public class TestOne {
         if (plusN != 0) {
             sb.insert(0, 1);
         }
+        return sb.toString();
+    }
+
+    public String addBinaryAnotherSolution(String a, String b) {
+        StringBuffer sb = new StringBuffer();
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+        int plusN = 0;
+        int sum = 0;
+        while (i >= 0 || j >= 0) {
+            int aStrNumber = 0;
+            int bStrNumber = 0;
+            if (i >= 0) {
+                aStrNumber = a.charAt(i--) - '0';
+            }
+            if (j >= 0) {
+                bStrNumber = b.charAt(j--) - '0';
+            }
+            sum = aStrNumber + bStrNumber + plusN;
+            sb.insert(0, sum % 2);
+            plusN = sum / 2;
+        }
+        if (plusN != 0) {
+            sb.insert(0, plusN);
+        }
+
         return sb.toString();
     }
 
