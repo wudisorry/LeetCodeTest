@@ -16,7 +16,7 @@ public class TestOne {
 //        for (int x : a) {
 //            System.out.println(x);
 //        }'""\n""'
-        System.out.println((to.addBinaryAnotherSolution("1010", "1011")));
+        System.out.println((to.climbStairs(37)));
     }
 
     /**
@@ -28,6 +28,13 @@ public class TestOne {
      * Note: Given n will be a positive integer.
      */
     public int climbStairs(int n) {
+//        if (n == 1) {
+//            return 1;
+//        } else if (n == 2) {
+//            return 2;
+//        } else {
+//            return climbStairs(n - 1) + climbStairs(n - 2) ;
+//        }
         return 0;
     }
 
@@ -38,10 +45,23 @@ public class TestOne {
      * Compute and return the square root of x, where x is guaranteed to be a non-negative integer.
      * <p>
      * Since the return type is an integer, the decimal digits are truncated and only the integer part of the result is returned.
+     * <p>
+     * 牛顿迭代法
+     * 取一个初始值X0,由点(X0，f(X0))和导数f'(X0)取得直线方程,求得直线方程的根X1,以X1为起始点迭代下去
+     * 最后得:X = (Xk + a/XK)/2
+     * 泰勒公式也能算？
      */
     public int mySqrt(int x) {
-
-        return 0;
+        if (x == 0) {
+            return 0;
+        }
+        double cur = x;
+        double las;
+        do {
+            las = cur;
+            cur = (cur + x / cur) / 2;
+        } while (Math.abs(las - cur) > Double.MIN_VALUE);
+        return (int) cur;
     }
 
     /**
