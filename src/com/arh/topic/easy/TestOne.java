@@ -16,7 +16,26 @@ public class TestOne {
 //        for (int x : a) {
 //            System.out.println(x);
 //        }'""\n""'
-        System.out.println((to.climbStairs(37)));
+        System.out.println((to.climbStairs(2)));
+    }
+
+    /**
+     * id=83 lang=java
+     * Given a sorted linked list, delete all duplicates such that each element appear only once.
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode lastNode = head;
+        ListNode curNode = head;
+        while (curNode.next != null) {
+            curNode = curNode.next;
+            if (curNode.val != lastNode.val) {
+                lastNode.next = curNode;
+            }
+        }
+        if (lastNode.val == curNode.val) {
+            lastNode.next = null;
+        }
+        return head;
     }
 
     /**
@@ -26,16 +45,23 @@ public class TestOne {
      * Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
      * <p>
      * Note: Given n will be a positive integer.
+     * <p>
+     * 假设有x个台阶，走法数等于(走(x-1)个台阶走法术+1步)加上(走(x-2)个台阶走法术+2步)
+     * 斐波那契数列 f(x) = f(x-1)+f(x-2)
+     * 递归会有重复计算，所以从1到目标数算
      */
     public int climbStairs(int n) {
-//        if (n == 1) {
-//            return 1;
-//        } else if (n == 2) {
-//            return 2;
-//        } else {
-//            return climbStairs(n - 1) + climbStairs(n - 2) ;
-//        }
-        return 0;
+        if (n < 2) {
+            return 1;
+        }
+        int a = 1;
+        int b = 1;
+        for (int i = 2; i < n; i++) {
+            int sum = a + b;
+            a = b;
+            b = sum;
+        }
+        return a + b;
     }
 
     /**
