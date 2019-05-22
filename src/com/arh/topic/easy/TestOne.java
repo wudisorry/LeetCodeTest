@@ -12,11 +12,63 @@ public class TestOne {
     public static void main(String[] args) {
         TestOne to = new TestOne();
         int[] a = new int[]{9, 9};
-//        System.out.println(to.removeElement(a, 2));
-//        for (int x : a) {
-//            System.out.println(x);
-//        }'""\n""'
+
         System.out.println((to.climbStairs(2)));
+
+        List<Object> list = new ArrayList<>();
+        list.add(null);
+        list.add(null);
+        list.add("a");
+        for (Object o : list) {
+            System.out.println(o);
+        }
+        list.toArray();
+        //printIntArray(a);
+    }
+
+    /**
+     * id=100 lang=java
+     * Given two binary trees, write a function to check if they are the same or not.
+     * <p>
+     * Two binary trees are considered the same if they are structurally identical and the nodes have the same value.
+     */
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        List listP = new ArrayList();
+        putTreeValue(p, listP);
+        List listQ = new ArrayList();
+        putTreeValue(q, listQ);
+        if (listP.size() != listQ.size()) {
+            return false;
+        } else {
+            for (int i = 0; i < listP.size(); i++) {
+                Object obj = listP.get(i);
+                Object obj2 = listQ.get(i);
+                if (obj == null && obj2 == null) {
+                    continue;
+                } else if (obj == null && obj2 != null) {
+                    return false;
+                } else if (obj != null && obj2 == null) {
+                    return false;
+                } else if (obj == obj2) {
+                    continue;
+                }
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void putTreeValue(TreeNode t, List list) {
+        if (t != null) {
+            list.add(t.val);
+            TreeNode leftTree = t.left;
+            putTreeValue(leftTree, list);
+            TreeNode rightTree = t.right;
+            putTreeValue(rightTree, list);
+        } else {
+            list.add(null);
+        }
     }
 
     /**
@@ -27,9 +79,31 @@ public class TestOne {
      * <p>
      * The number of elements initialized in nums1 and nums2 are m and n respectively.
      * You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.
+     * 归并排序，用nums1做存储数组，如果从小比较，移动较多。所以从大比较
      */
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        //for(int i)
+        int index1 = m - 1;
+        int index2 = n - 1;
+        int maxIndex = m + n - 1;
+        while (maxIndex >= 0) {
+            int curValue1 = Integer.MIN_VALUE;
+            if (index1 >= 0) {
+                curValue1 = nums1[index1];
+            }
+            int curValue2 = Integer.MIN_VALUE;
+            if (index2 >= 0) {
+                curValue2 = nums2[index2];
+            }
+            if (curValue1 <= curValue2) {
+                nums1[maxIndex] = curValue2;
+                index2--;
+            } else {
+                nums1[maxIndex] = curValue1;
+                index1--;
+            }
+            maxIndex--;
+        }
+
     }
 
     /**
@@ -468,15 +542,6 @@ public class TestOne {
 
     }
 
-    class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
-
     /**
      * id=20 lang=java
      * Given a string containing just the characters '(', ')', '{', '}', '[' and
@@ -659,6 +724,25 @@ public class TestOne {
             }
         }
         return result;
+    }
+
+    class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+    class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
     }
 
     public void printIntArray(int[] array) {
