@@ -27,49 +27,77 @@ public class TestOne {
     }
 
     /**
+     * id=104 lang=java
+     * Given a binary tree, find its maximum depth.
+     * <p>
+     * The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+     * <p>
+     * Note: A leaf is a node with no children.
+     */
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        } else {
+            return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+        }
+    }
+
+    /**
+     * id=101 lang=java
+     * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+     */
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        TreeNode nodeLeft = root.left;
+        TreeNode nodeRight = root.right;
+        return compareLeftRightNode(nodeLeft, nodeRight);
+
+    }
+
+    public boolean compareLeftRightNode(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        } else if (p != null && q == null) {
+            return false;
+        } else if (p == null && q != null) {
+            return false;
+        } else if (p.val != q.val) {
+            return false;
+        } else {
+            if (compareLeftRightNode(p.left, q.right)) {
+                return compareLeftRightNode(p.right, q.left);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    /**
      * id=100 lang=java
      * Given two binary trees, write a function to check if they are the same or not.
      * <p>
      * Two binary trees are considered the same if they are structurally identical and the nodes have the same value.
      */
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        List listP = new ArrayList();
-        putTreeValue(p, listP);
-        List listQ = new ArrayList();
-        putTreeValue(q, listQ);
-        if (listP.size() != listQ.size()) {
+        if (p == null && q == null) {
+            return true;
+        } else if (p == null && q != null) {
+            return false;
+        } else if (p != null && q == null) {
+            return false;
+        } else if (p.val != q.val) {
             return false;
         } else {
-            for (int i = 0; i < listP.size(); i++) {
-                Object obj = listP.get(i);
-                Object obj2 = listQ.get(i);
-                if (obj == null && obj2 == null) {
-                    continue;
-                } else if (obj == null && obj2 != null) {
-                    return false;
-                } else if (obj != null && obj2 == null) {
-                    return false;
-                } else if (obj == obj2) {
-                    continue;
-                }
+            if (isSameTree(p.left, q.left)) {
+                return isSameTree(p.right, q.right);
+            } else {
                 return false;
             }
         }
-
-        return true;
     }
 
-    public void putTreeValue(TreeNode t, List list) {
-        if (t != null) {
-            list.add(t.val);
-            TreeNode leftTree = t.left;
-            putTreeValue(leftTree, list);
-            TreeNode rightTree = t.right;
-            putTreeValue(rightTree, list);
-        } else {
-            list.add(null);
-        }
-    }
 
     /**
      * id=88 lang=java
