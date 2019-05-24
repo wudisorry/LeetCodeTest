@@ -27,6 +27,70 @@ public class TestOne {
     }
 
     /**
+     * id=108 lang=java
+     * Given an array where elements are sorted in ascending order, convert it to a height balanced BST.
+     * <p>
+     * For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if (nums == null) {
+            return null;
+        }
+        int rootIndex = (nums.length - 1) / 2;
+        TreeNode root = new TreeNode(nums[rootIndex]);
+        generateLeftRightNode(root, nums, 0, nums.length - 1);
+        return root;
+    }
+
+    public void generateLeftRightNode(TreeNode fatherNode, int[] nums, int p, int q) {
+        int m = (p + q) / 2;
+        int l = (p + m) / 2;
+        int r = (q + m) / 2;
+        TreeNode leftNode = new TreeNode(nums[l]);
+        fatherNode.left = leftNode;
+        generateLeftRightNode(leftNode, nums, p, m - 1);
+        TreeNode rightNode = new TreeNode(nums[r]);
+        fatherNode.right = rightNode;
+        generateLeftRightNode(rightNode, nums, m + 1, q);
+    }
+
+    /**
+     * id=107 lang=java
+     * Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        } else {
+            putNodeInList(root, result, 0);
+        }
+        Collections.reverse(result);
+        return result;
+    }
+
+    public void putNodeInList(TreeNode node, List<List<Integer>> result, int number) {
+        if (node != null) {
+            List<Integer> list = null;
+            if (result.size() > number) {
+                list = result.get(number);
+            }
+
+            if (list == null) {
+                list = new ArrayList<>();
+                result.add(list);
+            }
+            list.add(node.val);
+            TreeNode left = node.left;
+            TreeNode right = node.right;
+            number++;
+            putNodeInList(left, result, number);
+            putNodeInList(right, result, number);
+        }
+    }
+
+
+    /**
      * id=104 lang=java
      * Given a binary tree, find its maximum depth.
      * <p>
