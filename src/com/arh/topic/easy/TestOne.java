@@ -11,10 +11,10 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{0, 1, 2, 3, 4, 5};
+        int[] a = new int[]{-2, -1, 0, 1, 2, 3, 4, 5, 6};
 
         TreeNode node = to.sortedArrayToBST(a);
-        System.out.println(node.val);
+        to.printTreeNode(node);
         //printIntArray(a);
     }
 
@@ -840,7 +840,44 @@ public class TestOne {
 
     public void printTreeNode(TreeNode node) {
         if (node != null) {
+            int depth = maxDepth(node);
+            if (depth == 1) {
+                System.out.println(node.val);
+                return;
+            }
+            int blankNumber = (int) (Math.pow(2, depth) - 1);
+            List<TreeNode> nodes = new ArrayList<>();
+            nodes.add(node);
+            printTreeNode(nodes, depth - 1);
+        }
+    }
+
+    private void printTreeNode(List<TreeNode> nodes, int n) {
+        if (nodes == null || nodes.size() < 1) {
+            return;
+        }
+        System.out.println("");
+        int blankNumber = (int) (Math.pow(2, n) - 1);
+        for (int i = 0; i < blankNumber; i++) {
+            System.out.print(" ");
+        }
+        List<TreeNode> nextNodes = new ArrayList<>();
+        for (int i = 0; i < nodes.size(); i++) {
+            TreeNode tempNode = nodes.get(i);
+//            if (i > 0 && i % 2 == 0) {
+//                System.out.print(" ");
+//            }
+            if (tempNode == null) {
+                System.out.print("  ");
+                continue;
+            } else {
+                System.out.print(tempNode.val + " ");
+                nextNodes.add(tempNode.left);
+                nextNodes.add(tempNode.right);
+            }
 
         }
+        printTreeNode(nextNodes, --n);
+
     }
 }
