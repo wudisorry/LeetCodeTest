@@ -11,18 +11,10 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{9, 9};
+        int[] a = new int[]{0, 1, 2, 3, 4, 5};
 
-        System.out.println((to.climbStairs(2)));
-
-        List<Object> list = new ArrayList<>();
-        list.add(null);
-        list.add(null);
-        list.add("a");
-        for (Object o : list) {
-            System.out.println(o);
-        }
-        list.toArray();
+        TreeNode node = to.sortedArrayToBST(a);
+        System.out.println(node.val);
         //printIntArray(a);
     }
 
@@ -33,25 +25,26 @@ public class TestOne {
      * For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
      */
     public TreeNode sortedArrayToBST(int[] nums) {
-        if (nums == null) {
+        if (nums == null || nums.length == 0) {
             return null;
         }
-        int rootIndex = (nums.length - 1) / 2;
+
+        int rootIndex = nums.length - 1 - (nums.length - 1 - 0) / 2;
         TreeNode root = new TreeNode(nums[rootIndex]);
-        generateLeftRightNode(root, nums, 0, nums.length - 1);
+        root.left = generateLeftRightNode(nums, 0, rootIndex - 1);
+        root.right = generateLeftRightNode(nums, rootIndex + 1, nums.length - 1);
         return root;
     }
 
-    public void generateLeftRightNode(TreeNode fatherNode, int[] nums, int p, int q) {
-        int m = (p + q) / 2;
-        int l = (p + m) / 2;
-        int r = (q + m) / 2;
-        TreeNode leftNode = new TreeNode(nums[l]);
-        fatherNode.left = leftNode;
-        generateLeftRightNode(leftNode, nums, p, m - 1);
-        TreeNode rightNode = new TreeNode(nums[r]);
-        fatherNode.right = rightNode;
-        generateLeftRightNode(rightNode, nums, m + 1, q);
+    public TreeNode generateLeftRightNode(int[] nums, int p, int q) {
+        if (p > q) {
+            return null;
+        }
+        int m = q - (q - p) / 2;
+        TreeNode node = new TreeNode(nums[m]);
+        node.left = generateLeftRightNode(nums, p, m - 1);
+        node.right = generateLeftRightNode(nums, m + 1, q);
+        return node;
     }
 
     /**
@@ -842,6 +835,12 @@ public class TestOne {
             for (int obj : array) {
                 System.out.println(obj);
             }
+        }
+    }
+
+    public void printTreeNode(TreeNode node) {
+        if (node != null) {
+
         }
     }
 }
