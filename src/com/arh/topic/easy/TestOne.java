@@ -13,9 +13,115 @@ public class TestOne {
         TestOne to = new TestOne();
         int[] a = new int[]{-2, -1, 0, 1, 2, 3, 4, 5, 6};
 
-        TreeNode node = to.sortedArrayToBST(a);
-        to.printTreeNode(node);
+        //TreeNode node = to.sortedArrayToBST(a);
+        //to.printTreeNode(node);
+        TreeNode node = to.new TreeNode(5);
+        TreeNode node2 = to.new TreeNode(4);
+        TreeNode node3 = to.new TreeNode(11);
+        TreeNode node4 = to.new TreeNode(7);
+        TreeNode node5 = to.new TreeNode(2);
+        node3.left = node4;
+        node3.right = node5;
+        node2.left = node3;
+        node.left = node2;
+        to.hasPathSum(node, 22);
+
         //printIntArray(a);
+    }
+
+    /**
+     * id=118 lang=java
+     * Given a non-negative integer numRows, generate the first numRows of Pascal's triangle.
+     */
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (numRows > 0) {
+            List<Integer> temp = new ArrayList<>();
+            temp.add(1);
+            result.add(temp);
+            generate(--numRows, result);
+        }
+        return result;
+    }
+
+    public void generate(int numRows, List<List<Integer>> result) {
+        if (numRows > 0) {
+            List<Integer> temp = new ArrayList<>();
+            temp.add(1);
+            List<Integer> lastTemp = result.get(result.size() - 1);
+            for (int i = 0; i < lastTemp.size() - 1; i++) {
+                temp.add(lastTemp.get(i) + lastTemp.get(i + 1));
+            }
+            temp.add(1);
+            result.add(temp);
+            generate(--numRows, result);
+        }
+    }
+
+    /**
+     * id=112 lang=java
+     * Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.
+     */
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        } else if (root.left == null && root.right == null && sum == root.val) {
+            return true;
+        } else {
+            if (!hasPathSum(root.left, sum - root.val)) {
+                return hasPathSum(root.right, sum - root.val);
+            } else {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * id=111 lang=java
+     * Given a binary tree, find its minimum depth.
+     * <p>
+     * The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+     */
+    public int currentMinDepth = Integer.MAX_VALUE;
+
+    public int minDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return minDepth(root, 1);
+    }
+
+    private int minDepth(TreeNode node, int depth) {
+        if (node == null) {
+            return Integer.MAX_VALUE;
+        } else if (node.left == null && node.right == null) {
+            currentMinDepth = depth;
+            return depth;
+        } else {
+            depth++;
+            if (depth >= currentMinDepth) {
+                return Integer.MAX_VALUE;
+            }
+            return Math.min(minDepth(node.left, depth), minDepth(node.right, depth));
+        }
+    }
+
+    /**
+     * id=110 lang=java
+     * Given a binary tree, determine if it is height-balanced.
+     */
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        } else {
+            TreeNode leftNode = root.left;
+            TreeNode rightNode = root.right;
+            if (Math.abs(maxDepth(leftNode) - maxDepth(rightNode)) <= 1) {
+                return isBalanced(leftNode) && isBalanced(rightNode);
+            } else {
+                return false;
+            }
+        }
     }
 
     /**
