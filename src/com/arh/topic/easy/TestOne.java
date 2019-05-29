@@ -11,7 +11,7 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{-2, -1, 0, 1, 2, 3, 4, 5, 6};
+        int[] a = new int[]{7,1,5,3,6,4};
 
         //TreeNode node = to.sortedArrayToBST(a);
         //to.printTreeNode(node);
@@ -24,9 +24,62 @@ public class TestOne {
         node3.right = node5;
         node2.left = node3;
         node.left = node2;
-        to.hasPathSum(node, 22);
+        to.maxProfit(a);
 
         //printIntArray(a);
+    }
+
+    /**
+     * id=121 lang=java
+     * Say you have an array for which the ith element is the price of a given stock on day i.
+     * <p>
+     * If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+     */
+    public int maxProfit(int[] prices) {
+        int[] maxPArray = new int[prices.length];
+        for (int i = 0; i < prices.length; i++) {
+            int currentP = prices[i];
+            int currentM = Integer.MIN_VALUE;
+            for (int j = i + 1; j < prices.length; j++) {
+                int t = prices[j] - currentP;
+                if (t > currentM) {
+                    currentM = t;
+                }
+            }
+            maxPArray[i] = currentM;
+        }
+        int result = 0;
+        for (int i = 0; i < maxPArray.length; i++) {
+            if (maxPArray[i] > result) {
+                result = maxPArray[i];
+            }
+        }
+        return result;
+    }
+
+    /**
+     * id=119 lang=java
+     * Given a non-negative index k where k ≤ 33, return the kth index row of the Pascal's triangle.
+     * <p>
+     * Note that the row index starts from 0.
+     */
+    public List<Integer> getRow(int rowIndex) {
+        if (rowIndex < 0) {
+            return null;
+        }
+        List<Integer> result = new ArrayList<>();
+        result.add(1);
+        while (rowIndex > 0) {
+            List<Integer> tempList = new ArrayList<>();
+            tempList.add(1);
+            for (int i = 0; i < result.size() - 1; i++) {
+                tempList.add(result.get(i) + result.get(i + 1));
+            }
+            tempList.add(1);
+            result = tempList;
+            rowIndex--;
+        }
+        return result;
     }
 
     /**
