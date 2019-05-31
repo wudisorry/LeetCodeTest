@@ -11,7 +11,7 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{7,1,5,3,6,4};
+        int[] a = new int[]{7, 1, 5, 3, 6, 4};
 
         //TreeNode node = to.sortedArrayToBST(a);
         //to.printTreeNode(node);
@@ -55,6 +55,21 @@ public class TestOne {
             }
         }
         return result;
+    }
+
+    public int betterMaxProfit(int[] prices) {
+        int maxP = 0;
+        if (prices.length != 0) {
+            int bought = prices[0];
+            for (int i = 1; i < prices.length; i++) {
+                if (prices[i] < bought) {
+                    bought = prices[i];
+                } else if (prices[i] - bought > maxP) {
+                    maxP = prices[i] - bought;
+                }
+            }
+        }
+        return maxP;
     }
 
     /**
