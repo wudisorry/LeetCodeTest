@@ -24,9 +24,74 @@ public class TestOne {
         node3.right = node5;
         node2.left = node3;
         node.left = node2;
-        to.maxProfit(a);
+        System.out.println(to.isPalindrome("A man, a plan, a canal: Panama"));
 
         //printIntArray(a);
+    }
+
+    /**
+     * id=125 lang=java
+     * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+     * <p>
+     * Note: For the purpose of this problem, we define empty string as valid palindrome.
+     */
+    public boolean isPalindrome(String s) {
+        String myS = s.replaceAll("[^A-Za-z0-9]","");
+        boolean result = true;
+        char[] chars = myS.toCharArray();
+        int l = 0;
+        int r = chars.length - 1;
+        while (l < r) {
+            if (!String.valueOf(chars[l]).equalsIgnoreCase(String.valueOf(chars[r]))) {
+                result = false;
+                break;
+            } else {
+                l++;
+                r--;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * id=122 lang=java
+     * Say you have an array for which the ith element is the price of a given stock on day i.
+     * <p>
+     * Design an algorithm to find the maximum profit. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).
+     * <p>
+     * Note: You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again).
+     */
+    public int maxProfitTwo(int[] prices) {
+        int result = 0;
+        if (prices != null && prices.length != 0) {
+            int bought = prices[0];
+            boolean flag = true;
+            for (int i = 1; i < prices.length; i++) {
+                if (flag && prices[i] > bought) {
+                    result = result + prices[i] - bought;
+                    flag = false;
+                } else if (flag && prices[i] < bought) {
+                    bought = prices[i];
+                } else if (!flag && prices[i] > prices[i - 1]) {
+                    result = result - prices[i - 1] + prices[i];
+                } else if (!flag) {
+                    bought = prices[i];
+                    flag = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 贪心思想
+     */
+    public int maxProfitTwo2(int[] prices) {
+        int result = 0;
+        for (int i = 1; i < prices.length; i++) {
+            result = result + Math.max(0, prices[i] - prices[i - 1]);
+        }
+        return result;
     }
 
     /**
@@ -68,6 +133,20 @@ public class TestOne {
                     maxP = prices[i] - bought;
                 }
             }
+        }
+        return maxP;
+    }
+
+    /**
+     * 要求出数组中最小的买入点，最大的卖出点，且卖出再买入后面
+     * 为了结构一致（都是用max）,比较买入点的负数形式，买入点越小，对应负数越大
+     */
+    public int betterMaxProfit2(int[] prices) {
+        int bought = Integer.MIN_VALUE;
+        int maxP = 0;
+        for (int i = 0; i < prices.length; i++) {
+            bought = Math.max(bought, -prices[i]);
+            maxP = Math.max(maxP, prices[i] + bought);
         }
         return maxP;
     }
