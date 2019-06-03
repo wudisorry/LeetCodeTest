@@ -11,7 +11,7 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{4,1,2,1,2};
+        int[] a = new int[]{4, 1, 2, 1, 2};
 
         //TreeNode node = to.sortedArrayToBST(a);
         //to.printTreeNode(node);
@@ -24,9 +24,42 @@ public class TestOne {
         node3.right = node5;
         node2.left = node3;
         node.left = node2;
-        System.out.println(to.singleNumber(a));
+        ListNode ln = to.new ListNode(3);
+        ListNode ln2 = to.new ListNode(2);
+        ListNode ln3 = to.new ListNode(0);
+        ListNode ln4 = to.new ListNode(-4);
+        ln.next = ln2;
+        ln2.next = ln3;
+        ln3.next = ln4;
+        ln4.next = ln2;
+        System.out.println(to.hasCycle(ln));
 
         //printIntArray(a);
+    }
+
+    /**
+     * id=141 lang=java
+     * Given a linked list, determine if it has a cycle in it.
+     * <p>
+     * To represent a cycle in the given linked list, we use an integer pos which represents the position (0-indexed) in the linked list where tail connects to. If pos is -1, then there is no cycle in the linked list.
+     */
+    public boolean hasCycle(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        HashSet hashSet = new HashSet();
+        ListNode c = head;
+        hashSet.add(c);
+        boolean result = false;
+        while (c.next != null) {
+            if (hashSet.contains(c.next)) {
+                result = true;
+                break;
+            }
+            hashSet.add(c.next);
+            c = c.next;
+        }
+        return result;
     }
 
     /**
