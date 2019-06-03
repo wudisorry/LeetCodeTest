@@ -11,7 +11,7 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{7, 1, 5, 3, 6, 4};
+        int[] a = new int[]{4,1,2,1,2};
 
         //TreeNode node = to.sortedArrayToBST(a);
         //to.printTreeNode(node);
@@ -24,9 +24,24 @@ public class TestOne {
         node3.right = node5;
         node2.left = node3;
         node.left = node2;
-        System.out.println(to.isPalindrome("A man, a plan, a canal: Panama"));
+        System.out.println(to.singleNumber(a));
 
         //printIntArray(a);
+    }
+
+    /**
+     * id=136 lang=java
+     * Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+     */
+    public int singleNumber(int[] nums) {
+        Arrays.sort(nums);
+        int result = nums[nums.length - 1];
+        for (int i = 0; i < nums.length - 1; i = i + 2) {
+            if (nums[i] != nums[i + 1]) {
+                return nums[i];
+            }
+        }
+        return result;
     }
 
     /**
@@ -36,7 +51,7 @@ public class TestOne {
      * Note: For the purpose of this problem, we define empty string as valid palindrome.
      */
     public boolean isPalindrome(String s) {
-        String myS = s.replaceAll("[^A-Za-z0-9]","");
+        String myS = s.replaceAll("[^A-Za-z0-9]", "");
         boolean result = true;
         char[] chars = myS.toCharArray();
         int l = 0;
