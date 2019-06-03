@@ -38,6 +38,56 @@ public class TestOne {
     }
 
     /**
+     * id=155 lang=java
+     * Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+     * <p>
+     * push(x) -- Push element x onto stack.
+     * pop() -- Removes the element on top of the stack.
+     * top() -- Get the top element.
+     * getMin() -- Retrieve the minimum element in the stack.
+     */
+    class MinStack {
+
+        private int[] array = new int[5];
+
+        private int index = 0;
+
+        /**
+         * initialize your data structure here.
+         */
+        public MinStack() {
+
+        }
+
+        public void push(int x) {
+            if (index > array.length - 1) {
+                array = Arrays.copyOf(array, array.length * 2);
+            }
+            array[index] = x;
+            index++;
+        }
+
+        public void pop() {
+            if (index > 0) {
+                index--;
+            }
+        }
+
+        public int top() {
+            return array[index];
+        }
+
+        public int getMin() {
+            if (array.length == 0) {
+                return 0;
+            }
+            int[] tempArray = Arrays.copyOfRange(array, 0, index + 1);
+            Arrays.sort(tempArray);
+            return tempArray[0];
+        }
+    }
+
+    /**
      * id=141 lang=java
      * Given a linked list, determine if it has a cycle in it.
      * <p>
@@ -60,6 +110,52 @@ public class TestOne {
             c = c.next;
         }
         return result;
+    }
+
+    /**
+     * 链表就想到快慢指针（设快指针速度为满指针2倍）
+     * 猜想：如果列表有环，则快慢指针移动会在某个节点相遇(环外节点为p，环内节点为q)
+     * 证明：设相遇时慢指针走了t个节点，则有(t-(p-1)) mod q = (2t-(p-1)) mod q => (2t-(p-1)-(t-(p-1))) mod q = 0
+     * 由等式知道t满足t是q的倍数并且要比p大（要进到环内一定要走过p个节点）
+     * 所以一定会存在这个t，所以有环快慢指针一定会相遇
+     */
+    public boolean betterHasCycle(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        ListNode slowNode = head;
+        ListNode fastNode = head;
+        while (fastNode != null) {
+            slowNode = slowNode.next;
+            fastNode = fastNode.next;
+            if (fastNode == null) {
+                return false;
+            }
+            fastNode = fastNode.next;
+            if (fastNode == slowNode) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 这个解法会改变链表的结构
+     * 遇到一个节点就把这个节点的next指向自己，如果没有环是不会遇到节点指向自己的
+     */
+    public boolean betterHasCycle2(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        while (head != null) {
+            ListNode nextNode = head.next;
+            if (head == nextNode) {
+                return true;
+            }
+            head.next = head;
+            head = nextNode;
+        }
+        return false;
     }
 
     /**
