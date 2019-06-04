@@ -45,12 +45,13 @@ public class TestOne {
      * pop() -- Removes the element on top of the stack.
      * top() -- Get the top element.
      * getMin() -- Retrieve the minimum element in the stack.
+     * 在插入一个比当前最小数还要小的数时，先插入当前最小，再插入新的数。取数时则要判断是否是最小数.
      */
     class MinStack {
 
-        private int[] array = new int[5];
+        private Stack<Integer> stack = new Stack();
 
-        private int index = 0;
+        private Integer min = Integer.MAX_VALUE;
 
         /**
          * initialize your data structure here.
@@ -60,30 +61,27 @@ public class TestOne {
         }
 
         public void push(int x) {
-            if (index > array.length - 1) {
-                array = Arrays.copyOf(array, array.length * 2);
+            if (x <= min) {
+                stack.push(min);
+                min = x;
             }
-            array[index] = x;
-            index++;
+            stack.push(x);
         }
 
         public void pop() {
-            if (index > 0) {
-                index--;
+            int x = stack.pop();
+            if (x == min) {
+                min = stack.pop();
             }
+
         }
 
         public int top() {
-            return array[index];
+            return stack.lastElement();
         }
 
         public int getMin() {
-            if (array.length == 0) {
-                return 0;
-            }
-            int[] tempArray = Arrays.copyOfRange(array, 0, index + 1);
-            Arrays.sort(tempArray);
-            return tempArray[0];
+            return min;
         }
     }
 
