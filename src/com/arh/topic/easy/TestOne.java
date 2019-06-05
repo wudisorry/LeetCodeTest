@@ -11,7 +11,7 @@ public class TestOne {
 
     public static void main(String[] args) {
         TestOne to = new TestOne();
-        int[] a = new int[]{4, 1, 2, 1, 2};
+        int[] a = new int[]{2, 7, 11, 15};
 
         //TreeNode node = to.sortedArrayToBST(a);
         //to.printTreeNode(node);
@@ -32,9 +32,146 @@ public class TestOne {
         ln2.next = ln3;
         ln3.next = ln4;
         ln4.next = ln2;
-        System.out.println(to.hasCycle(ln));
+        //System.out.println(to.hasCycle(ln));
 
-        //printIntArray(a);
+        to.printIntArray(to.twoSumTwo(a, 9));
+    }
+
+    /**
+     * id=168 lang=java
+     * Given a positive integer, return its corresponding column title as appear in an Excel sheet.
+     * 取余
+     */
+    public String convertToTitle(int n) {
+        char a = 'A';
+        String[] array = new String[26];
+        for (int i = 0; i < 26; i++) {
+            array[i] = String.valueOf(a);
+            a++;
+        }
+        StringBuffer sb = new StringBuffer();
+        int x = n / 26;
+        int y = n % 26;
+        if (y == 0) {
+            sb.append(array[25]);
+            x = x - 1;
+        } else {
+            sb.append(array[y - 1]);
+        }
+        while (x > 0) {
+            y = x % 26;
+            x = x / 26;
+            if (y == 0) {
+                sb.append(array[25]);
+                x = x - 1;
+            } else {
+                sb.append(array[y - 1]);
+            }
+        }
+        sb.reverse();
+        return sb.toString();
+    }
+
+    /**
+     * id=167 lang=java
+     * Given an array of integers that is already sorted in ascending order, find two numbers such that they add up to a specific target number.
+     * <p>
+     * The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2.
+     */
+    public int[] twoSumTwo(int[] numbers, int target) {
+        int[] result = new int[2];
+        for (int i = 0; i < numbers.length; i++) {
+            int x = numbers[i];
+            int y = target - x;
+            int r = dichotomy(numbers, i + 1, numbers.length - 1, y);
+            if (r != -1) {
+                result[0] = i + 1;
+                result[1] = r + 1;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public int[] twoSumTwo2(int[] numbers, int target) {
+        int l = 0;
+        int r = numbers.length - 1;
+        while (l < r) {
+            int sum = numbers[l] + numbers[r];
+            if (sum == target) {
+                return new int[]{l + 1, r + 1};
+            } else if (sum < target) {
+                l++;
+            } else if (sum > target) {
+                r--;
+            }
+        }
+        return new int[]{0, 0};
+    }
+
+    private int dichotomy(int[] numbers, int l, int r, int target) {
+        if (l > r) {
+            return -1;
+        } else if (l == r && numbers[l] == target) {
+            return l;
+        } else if (l == r && numbers[l] != target) {
+            return -1;
+        }
+        int m = (r - l) / 2 + l;
+        if (target < numbers[m]) {
+            return dichotomy(numbers, l, m - 1, target);
+        } else if (target > numbers[m]) {
+            return dichotomy(numbers, m + 1, r, target);
+        } else {
+            return m;
+        }
+    }
+
+    /**
+     * id=160 lang=java
+     * Write a program to find the node at which the intersection of two singly linked lists begins.
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode nodeA = headA.next;
+        int nodeALength = 1;
+        while (nodeA != null) {
+            nodeA = nodeA.next;
+            nodeALength++;
+        }
+        ListNode nodeB = headB.next;
+        int nodeBLength = 1;
+        while (nodeB != null) {
+            nodeB = nodeB.next;
+            nodeBLength++;
+        }
+
+        int dif = Math.abs(nodeALength - nodeBLength);
+        if (nodeALength > nodeBLength) {
+            return getIntersectionNodeByOrder(headB, headA, dif);
+        } else {
+            return getIntersectionNodeByOrder(headA, headB, dif);
+        }
+    }
+
+    private ListNode getIntersectionNodeByOrder(ListNode smallNode, ListNode bigNode, int dif) {
+        while (dif > 0) {
+            bigNode = bigNode.next;
+            dif--;
+        }
+        if (smallNode == bigNode) {
+            return smallNode;
+        }
+        while (smallNode.next != null && bigNode.next != null) {
+            smallNode = smallNode.next;
+            bigNode = bigNode.next;
+            if (smallNode == bigNode) {
+                return smallNode;
+            }
+        }
+        return null;
     }
 
     /**
