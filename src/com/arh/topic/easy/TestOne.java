@@ -32,9 +32,44 @@ public class TestOne {
         ln2.next = ln3;
         ln3.next = ln4;
         ln4.next = ln2;
-        //System.out.println(to.hasCycle(ln));
+        System.out.println(to.titleToNumber("ZY"));
 
-        to.printIntArray(to.twoSumTwo(a, 9));
+        //to.printIntArray(to.twoSumTwo(a, 9));
+    }
+
+    /**
+     * id=172 lang=java
+     * *
+     * Given an integer n, return the number of trailing zeroes in n!.
+     */
+    public int trailingZeroes(int n) {
+
+    }
+
+    /**
+     * id=171 lang=java
+     * Given a column title as appear in an Excel sheet, return its corresponding column number.
+     */
+    public int titleToNumber(String s) {
+        int result = 0;
+        char[] chars = s.toCharArray();
+        for (int i = chars.length - 1; i >= 0; i--) {
+            result = (int) (result + (chars[i] - 'A' + 1) * Math.pow(26, chars.length - 1 - i));
+        }
+        return result;
+
+    }
+
+    /**
+     * id=169 lang=java
+     * Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+     * <p>
+     * You may assume that the array is non-empty and the majority element always exist in the array.
+     */
+    public int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        int m = (nums.length - 1) / 2;
+        return nums[m];
     }
 
     /**
