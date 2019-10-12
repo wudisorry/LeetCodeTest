@@ -10,6 +10,7 @@ import com.sun.deploy.util.ArrayUtil;
 public class TestOne {
 
     public static void main(String[] args) {
+        //test
         TestOne to = new TestOne();
         int[] a = new int[]{2, 7, 11, 15};
 
@@ -44,6 +45,7 @@ public class TestOne {
      */
     public int trailingZeroes(int n) {
 
+        return 0;
     }
 
     /**
